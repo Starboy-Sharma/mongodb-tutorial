@@ -109,7 +109,7 @@ DELETE FROM table_name WHERE condition;
 In mongoose we have following options:
 ```
 
-`findOneAndDelete()` returns the deleted document after having deleted it (in case you need its contents after the delete operation);
+findOneAndDelete() returns the deleted document after having deleted it (in case you need its contents after the delete operation);
 deleteOne() is used to delete a single document
 remove() is a deprecated function and has been replaced by deleteOne() (to delete a single document) and deleteMany() (to delete multiple documents)
 
