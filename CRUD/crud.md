@@ -1,11 +1,11 @@
 # CRUD (Create Read Update Delete)
-We will start from basic and learn how to create, read, update, delete operations on our documents. Before we get started we need to understand what is documents or collections for understand better.  This post is more focused on the query part. If you want to clear your basics. I will highly recommend you to watch MongoDB universties [M001 MongoDB Basics](https://university.mongodb.com/ "M001 MongoDB Basics"). I will share the mongoose queries.
+We will start from basic and learn how to create, read, update, delete operations on our documents. Before we get started we need to understand what is documents or collections for understanding better.  This post is more focused on the query part. If you want to clear your basics. I will highly recommend you to watch MongoDB universities [M001 MongoDB Basics](https://university.mongodb.com/ "M001 MongoDB Basics"). I will share the mongoose queries.
 
-## What are Collections ?
-Collections are similar to table in your sql. Collections have multiple documents. For example: `users, posts`. You should always use small letters for your collections and your collections name should be plural. A collections may have multiple documents.
+## What are Collections?
+Collections are similar to a table in your SQL. Collections have multiple documents. For example users, posts. You should always use small letters for your collections and your collections name should be plural. A collection may have multiple documents.
 
-## What are Documents ?
-Documents are part of collections. Documents are in the form of BSON which is  similar to JSON but have some [difference](https://www.mongodb.com/json-and-bson "difference"). Each collection has a unique ObjectId like in Sql we have Primary Key which will increment for new entries. MongoDB generate a new ObjectId whenever a new document is saved. 
+## What are Documents?
+Documents are part of collections. Documents are in the form of BSON which is  similar to JSON but have some [differences](https://www.mongodb.com/json-and-bson "differences"). Each collection has a unique ObjectId like in SQL we have Primary Key which will increment for new entries. MongoDB generates a new ObjectId whenever a new document is saved. 
 
 Example of a document
 
