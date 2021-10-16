@@ -99,6 +99,7 @@ let user = await userModel.findByIdAndUpdate(userId, updateData, { new: true,  u
 Also note when you are updating your document your schema validations will not affect here. If you want to validate your updated document by mongoose then you should pass runvalidation falg.
 ```js
 let user = await userModel.findByIdAndUpdate(userId, updateData, { new: true,  upsert: true, runValidators: true});
+```
 
 #### Delete Document
 Delete query in sql
