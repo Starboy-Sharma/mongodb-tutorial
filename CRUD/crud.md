@@ -22,7 +22,7 @@ Example of a document
 ```
 
 ## Collections Structure
-MongoDB is super flexible and saves your keyboard when you get errors like this field does not exist. If you are trying to insert a file that does not exist in your collection. It will create a new one instead of bothering you. But for consistency [mongoose,](https://mongoosejs.com/ "mongoose,") ORM for MongoDB is used and helps you to save correct data in the collection. You can clear your basics with mongo by checking out this cool post. [Mongoose Schema Design](https://www.freecodecamp.org/news/introduction-to-mongoose-for-mongodb-d2a7aa593c57/ "Mongoose Schema Design")
+MongoDB is super flexible and saves your keyboard from your hammer hands when you get errors like this field does not exist. If you are trying to insert a file that does not exist in your collection. It will create a new one instead of bothering you. But for consistency [mongoose,](https://mongoosejs.com/ "mongoose,") ORM for MongoDB is used and helps you to save correct data in the collection. You can clear your basics with mongo by checking out this cool post. [Mongoose Schema Design](https://www.freecodecamp.org/news/introduction-to-mongoose-for-mongodb-d2a7aa593c57/ "Mongoose Schema Design")
 
 
 ## Enough! Show me how to do it
