@@ -64,8 +64,14 @@ let user = await userObj.save().lean();
 Sometimes you also want to add some extra fields in the saved user object. If you try to do `user.profilePitcture = '';` It will not work. You need to convert the result into JSON. You have various options.
 
 ```js
+// modify mongoose result object
 user = JSON.stringify(user);
 user = JSON.parse(user);
+
+user.isSubscribed = false;
+
+// delete a key
+delete user.password;
 ```
 
 Or you can also call the lean() method to convert mongoose results in the plain object so you can add or remove fields.
