@@ -68,4 +68,39 @@ Or you can also call the lean() method to convert mongoose results in the plain 
 let user = await userObj.save().lean()
 ```
 
+```js
+let user = await userObj.save().lean()
+```
+
+    Model.create() is a shortcut for saving one or more documents to the database.
+
+    MyModel.create(docs) does new MyModel(doc).save() for every doc in docs.
+
+    This function triggers the following middleware.
+
+    save()
+
+#### Update Document
+In SQL our query looks like this:
+```sql
+UPDATE table_name
+SET column1 = value1, column2 = value2...., columnN = valueN
+WHERE [condition];
+```
+Mongoose has following methods
+- findByIdAndUpdate( userId, updateData , options)
+- findOneAndUpdate( {  status: 'active' }, updateData, options)
+- updateMany({  status: 'active' } , updateData, options)
+
+All of this method will going to return promise and if you want to get udated document you need to pass 3 parameter which will return the result with updated object.
+```js
+let user = await userModel.findByIdAndUpdate(userId, updateData, { new: true, });
+```
+If you want to do something like if condition is not match then insert a new document in that case you can pass upsert to true. It will insert a new document if condition not matched else it will going to update the matching document.
+```js
+let user = await userModel.findByIdAndUpdate(userId, updateData, { new: true,  upsert: true});
+```
+Also note when you are updating your document your schema validations will not affect here. If you want to validate your updated document by mongoose then you should pass runvalidation falg.
+```js
+let user = await userModel.findByIdAndUpdate(userId, updateData, { new: true,  upsert: true, runValidators: true});
 
