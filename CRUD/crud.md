@@ -1,5 +1,5 @@
 # CRUD (Create Read Update Delete)
-We will start from basic and learn how to create, read, update, delete operations on our documents. Before we get started we need to understand what is documents or collections for understanding better.  This post is more focused on the query part. If you want to clear your basics. I will highly recommend you to watch MongoDB universities [M001 MongoDB Basics](https://university.mongodb.com/ "M001 MongoDB Basics"). I will share the mongoose queries.
+We will start from basic and learn how to create, read, updat and delete operations on our documents. Before we get started we need to understand what is documents or collections for understanding better.  This post is more focused on the query part. If you want to clear your basics. I will highly recommend you to watch MongoDB universities [M001 MongoDB Basics](https://university.mongodb.com/ "M001 MongoDB Basics"). I will share the mongoose queries.
 
 ## What are Collections?
 Collections are similar to a table in your SQL. Collections have multiple documents. For example users, posts. You should always use small letters for your collections and your collections name should be plural. A collection may have multiple documents.
@@ -18,7 +18,6 @@ Example of a document
     "createdAt" : ISODate("2021-10-06T06:21:12.638Z"),
     "updatedAt" : ISODate("2021-10-14T13:12:38.297Z"),
     "__v" : 0,
-    "deleteReason" : "Mere marzi"
 }
 ```
 
@@ -64,9 +63,6 @@ user = JSON.parse(user);
 ```
 
 Or you can also call the lean() method to convert mongoose results in the plain object so you can add or remove fields.
-```js
-let user = await userObj.save().lean()
-```
 
 ```js
 let user = await userObj.save().lean()
@@ -92,7 +88,7 @@ Mongoose has following methods
 - findOneAndUpdate( {  status: 'active' }, updateData, options)
 - updateMany({  status: 'active' } , updateData, options)
 
-All of this method will going to return promise and if you want to get udated document you need to pass 3 parameter which will return the result with updated object.
+All of this method will going to return promise and if you want to get udated document you need to pass 3rd parameter which will return the result with updated object.
 ```js
 let user = await userModel.findByIdAndUpdate(userId, updateData, { new: true, });
 ```
@@ -104,3 +100,24 @@ Also note when you are updating your document your schema validations will not a
 ```js
 let user = await userModel.findByIdAndUpdate(userId, updateData, { new: true,  upsert: true, runValidators: true});
 
+#### Delete Document
+Delete query in sql
+```sql
+DELETE FROM table_name WHERE condition; 
+```
+In mongoose we have following options:
+```
+
+    findOneAndDelete() returns the deleted document after having deleted it (in case you need its contents after the delete operation);
+    deleteOne() is used to delete a single document
+    remove() is a deprecated function and has been replaced by deleteOne() (to delete a single document) and deleteMany() (to delete multiple documents)
+
+findByIdAndDelete() should be able to delete on _id.
+findOneAndDelete(query) delete single document which match te given query and return the deleted document.
+```
+```js
+let user = await userModel.findByIdAndDelete(userId);
+
+// delete user those age is 20 or less than 20
+let user = await userModel.delete({ age: { $lte: 20 } });
+```
