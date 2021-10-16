@@ -50,9 +50,15 @@ let user = {
 let userObj = new userModel(user);
 
 // user.save() returns a promise it will return the saved document or throw an error
-user.Objsave()
+userObj.save()
 	.then(user => console.log(user))
 	.catch(err => console.error(err));
+
+// you can also use await
+let user = await userObj.save();
+
+// with the lean()
+let user = await userObj.save().lean();
 
 ```
 Sometimes you also want to add some extra fields in the saved user object. If you try to do `user.profilePitcture = '';` It will not work. You need to convert the result into JSON. You have various options.
