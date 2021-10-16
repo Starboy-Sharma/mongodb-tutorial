@@ -23,7 +23,7 @@ Example of a document
 ```
 
 ## Collections Structure
-MongoDB is super flexible and save your keyboard when you get errors like this field does not exists. If you are trying to insert a filed which is not exists in your collection. It will create a new one instead of bothering you 🤯. But for consistency [mongoose](https://mongoosejs.com/ "mongoose") ORM for mongoDB is used and helps you to save correct data in the collection. You can clear your basics with mongo by check out this cool post. [Mongoose Schema Design](https://www.freecodecamp.org/news/introduction-to-mongoose-for-mongodb-d2a7aa593c57/ "Mongoose Schema Design")
+MongoDB is super flexible and saves your keyboard when you get errors like this field does not exist. If you are trying to insert a file that does not exist in your collection. It will create a new one instead of bothering you. But for consistency [mongoose,](https://mongoosejs.com/ "mongoose,") ORM for MongoDB is used and helps you to save correct data in the collection. You can clear your basics with mongo by checking out this cool post. [Mongoose Schema Design](https://www.freecodecamp.org/news/introduction-to-mongoose-for-mongodb-d2a7aa593c57/ "Mongoose Schema Design")
 
 
 ## Enough! Show me how to do it
@@ -56,14 +56,14 @@ user.Objsave()
 	.catch(err => console.error(err));
 
 ```
-Sometimes you also wan to add some extra fields in saved user object. If you try to do `user.profilePitcture = '';` It will not work. You need to convert the result in JSON. You have serveral options.
+Sometimes you also want to add some extra fields in the saved user object. If you try to do `user.profilePitcture = '';` It will not work. You need to convert the result into JSON. You have various options.
 
 ```js
 user = JSON.stringify(user);
 user = JSON.parse(user);
 ```
 
-Or you can also call lean() method to convert mognoose result in plain object so you can add or remove fields.
+Or you can also call the lean() method to convert mongoose results in the plain object so you can add or remove fields.
 ```js
 let user = await userObj.save().lean()
 ```
