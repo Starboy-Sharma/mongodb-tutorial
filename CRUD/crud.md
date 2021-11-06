@@ -1,11 +1,11 @@
 # CRUD (Create Read Update Delete)
-We will start from basic and learn how to create, read, updat and delete operations on our documents. Before we get started we need to understand what is documents or collections for understanding better.  This post is more focused on the query part. If you want to clear your basics. I will highly recommend you to watch MongoDB universities [M001 MongoDB Basics](https://university.mongodb.com/ "M001 MongoDB Basics"). I will share the mongoose queries.
+We will start from basic queries and learn how to create, read, update and delete operations in MongoDB. Before we get started we need to understand what is documents or collections for understanding better.  This post is more focused on the query part. If you want to clear your basics. I will highly recommend you to watch MongoDB universities [M001 MongoDB Basics](https://university.mongodb.com/ "M001 MongoDB Basics"). I will share the mongoose queries.
 
 ## What are Collections?
 Collections are similar to a table in your SQL. Collections have multiple documents. For example users, posts. You should always use small letters for your collections and your collections name should be plural. A collection may have multiple documents.
 
 ## What are Documents?
-Documents are part of collections. Documents are in the form of BSON which is  similar to JSON but have some [differences](https://www.mongodb.com/json-and-bson "differences"). Each collection has a unique ObjectId like in SQL we have Primary Key which will increment for new entries. MongoDB generates a new ObjectId whenever a new document is saved. 
+Documents are part of collections. Documents are in the form of BSON which is similar to JSON but have some [differences](https://www.mongodb.com/json-and-bson "differences"). Each collection has a unique ObjectId like in SQL we have Primary Key which will increment for new entries. MongoDB generates a new ObjectId whenever a new document is saved. 
 
 Example of a document
 
@@ -70,7 +70,7 @@ let user = await userObj.save();
 user = JSON.stringify(user);
 user = JSON.parse(user);
 
-// add a key
+// add a custom key
 user.isSubscribed = false;
 
 // delete a key
@@ -103,25 +103,26 @@ Mongoose has following methods
 - findOneAndUpdate( {  status: 'active' }, updateData, options)
 - updateMany({  status: 'active' } , updateData, options)
 
-All of this method will going to return promise and if you want to get udated document you need to pass 3rd parameter which will return the result with updated object.
+
+All of these methods will be going to return a promise and if you want to get an updated document you need to pass 3rd parameter which will return the result with an updated object.
 ```js
 let user = await userModel.findByIdAndUpdate(userId, updateData, { new: true, });
 ```
-If you want to do something like if condition is not match then insert a new document in that case you can pass upsert to true. It will insert a new document if condition not matched else it will going to update the matching document.
+If you want to do something like if the condition does not match then insert a new document in that case you can pass upsert to true. It will insert a new document if the condition is not matched else it will going to update the matching document.
 ```js
 let user = await userModel.findByIdAndUpdate(userId, updateData, { new: true,  upsert: true});
 ```
-Also note when you are updating your document your schema validations will not affect here. If you want to validate your updated document by mongoose then you should pass runvalidation falg.
+Also note when you are updating your document your schema validations will not affect here. If you want to validate your updated document by mongoose then you should pass runValidators falg.
 ```js
 let user = await userModel.findByIdAndUpdate(userId, updateData, { new: true,  upsert: true, runValidators: true});
 ```
 
 #### Delete Document
-Delete query in sql
+Delete query in SQL
 ```sql
 DELETE FROM table_name WHERE condition; 
 ```
-In mongoose we have following options:
+In mongoose we have the following options:
 ```
 
 findOneAndDelete() returns the deleted document after having deleted it (in case you need its contents after the delete operation);
@@ -136,4 +137,47 @@ let user = await userModel.findByIdAndDelete(userId);
 
 // delete user those age is 20 or less than 20
 let user = await userModel.delete({ age: { $lte: 20 } });
+```
+
+#### Select Document
+In sql we will like our sql statement like this
+```sql
+SELECT * FROM table_name;
+```
+
+In mongoose, we have a find method that is used to pick data from collections. For example, if you have a user collection and you want to select all the data from the database. You need the `find()` method which takes an object as a parameter. You conditional part of the query is basically live in first parameter of `find( {< Condition >}, { <Projection> } )`
+```js
+let usersData = await users.find( {} ); // return all the documents inside users collection
+```
+
+What if you are looking for a conditional base result. For example you only want to select active users.
+```js
+let userData = await users.find( { status: 'active' } ); // return active users
+```
+
+Users which status are active and their age is above or equal 18 and below 65
+```js
+// $gte = greater than or equal to
+// $lt = less than
+let userData = await users.find( { status: 'active', age: { $gte: 18 }, age: { $lt: 65 } } );
+```
+If you run these queries you will get all the fields of your document. If you want to select some required fields. You can also do this. In SQL, you write like this
+```sql
+SELECT id, email, name FROM table_name 
+```
+In mongoose 
+```js
+let userData = await users.find(
+    { status: 'active' }, // Similar to where clause
+    { _id: 1, name: 1, email: 1 } // Selected data
+);
+```
+
+**Note** By default _id field will come as a selected field if you do not want to add _id you can simply write `_id: 0`. So, MongoDB will skip _id.
+If don't want to select any specific field. For example I want to select all fields except name field. So I can write something like this
+```js
+let userData = await users.find(
+    { status: 'active' }, // Similar to where clause
+    { name: 0 } // Selected data
+);
 ```
